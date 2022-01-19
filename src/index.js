@@ -1,48 +1,128 @@
-/* eslint-disable no-unused-vars */
-import _ from 'lodash';
+/* eslint no-restricted-globals: "off", curly: "error" */
 import './style.css';
+import List from './list.js';
+import setList from './setList.js';
+import Storage from './store.js';
 
-const listItems = [
-  {
-    description: 'Go to the gym',
-    completed: false,
-    index: 0,
-  },
-  {
-    description: 'Prepare breakfast',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Wash dishes',
-    completed: false,
-    index: 2,
-  },
-];
+const addBtn = document.getElementById('add');
+const removeAll = document.getElementById('clear');
+const inputField = document.getElementById('new-item');
+const storage = new Storage();
 
-const createList = (list) => {
-  const li = document.createElement('li');
+let lists = storage.getList();
+localStorage.setItem('list', JSON.stringify(lists));
 
-  li.innerHTML = `
-  <li class="tasks-itm">
-    <label class="tasks-lb d-flex justify-content-between align-content-center">
-      <input type="checkbox" value="${list.completed}">
-      <p class="des-task">${list.description}</p>
-    </label><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-check" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
-    </svg>
-  </li>`;
+let listCounter = 1;
+if (localStorage.getItem('list') == null) {
+  listCounter = 4;
+}
 
-  return li;
+const counterIncreament = () => {
+  const res = listCounter;
+  listCounter += 1;
+  return res;
 };
 
-const displayLists = (taskList) => {
-  const taskUl = document.querySelector('.task-placeholder');
+const deleteAll = (id) => {
+  const index = id.slice(7).toString() - 1;
+  lists.splice(index, 1);
+  localStorage.setItem('list', JSON.stringify(lists));
+  location.reload();
+};
 
-  taskList.forEach((element) => {
-    const li = createList(element);
-    taskUl.appendChild(li);
+const editEvent = (id) => {
+  const index = id.slice(5).toString();
+  const textField = document.getElementById(`${index}-description`);
+  textField.innerHTML = '';
+  const editField = document.createElement('input');
+  editField.type = 'text';
+  editField.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      lists[index - 1].description = editField.value;
+      localStorage.setItem('list', JSON.stringify(lists));
+      textField.innerHTML = `${editField.value}`;
+    }
   });
+  textField.appendChild(editField);
 };
 
-window.onload = displayLists(listItems);
+const updateTask = (item, index) => {
+  lists[index - 1].completed = item;
+  localStorage.setItem('list', JSON.stringify(lists));
+  const text = document.getElementById(`${index}-description`);
+  if (item) {
+    text.classList.add('overlined');
+  } else {
+    text.classList.remove('overlined');
+  }
+};
+
+function loadPredef(arr) {
+  for (let i = 0; i < arr.length; i += 1) {
+    setList(arr[i].description, arr[i].completed, counterIncreament());
+  }
+  localStorage.setItem('list', JSON.stringify(lists));
+  const completeCheckBox = document.querySelectorAll("input[type='checkbox']");
+  completeCheckBox.forEach((box) => {
+    box.addEventListener('click', () => {
+      updateTask(box.checked, box.value);
+    });
+  });
+  const completeRemovers = document.querySelectorAll('a.dropdown-remover');
+  completeRemovers.forEach((link) => {
+    link.addEventListener('click', () => {
+      deleteAll(link.id);
+    });
+  });
+  const completeEditors = document.querySelectorAll('a.dropdown-editor');
+  completeEditors.forEach((link) => {
+    link.addEventListener('click', () => {
+      editEvent(link.id);
+    });
+  });
+}
+
+loadPredef(lists);
+
+inputField.addEventListener('keypress', (e) => {
+  if (e.key === 'enter') {
+    const newIndex = counterIncreament();
+    const description = document.getElementById('new-task').value;
+
+    if (description === '' || description === ' ' || description == null) { return; }
+    setList(description, false, newIndex);
+    updateTask();
+
+    document.getElementById('new-item').value = '';
+    const newTask = new List(description, false, newIndex);
+
+    lists.push(newTask);
+    localStorage.setItem('list', JSON.stringify(lists));
+    location.reload();
+  }
+});
+
+addBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const newIndex = counterIncreament();
+  const description = document.getElementById('new-task').value;
+
+  if (description === '' || description === ' ' || description == null) { return; }
+  setList(description, false, newIndex);
+
+  document.getElementById('new-task').value = '';
+  const newTask = new List(description, false, newIndex);
+
+  lists.push(newTask);
+  localStorage.setItem('list', JSON.stringify(lists));
+  location.reload();
+});
+
+removeAll.addEventListener('click', (e) => {
+  e.preventDefault();
+  lists = lists.filter((task) => task.completed === false);
+  localStorage.setItem('list', JSON.stringify(lists));
+  location.reload();
+});
