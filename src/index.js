@@ -29,7 +29,6 @@ function createList(taskList) {
   `;
 }
 
-
 const taskUl = document.querySelector('.task-display');
 
 listItems.forEach((taskList) => {

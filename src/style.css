@@ -37,29 +37,3 @@ body {
 input {
   position: relative;
 }
-
-.tasks-lb {
-  display: flex;
-  justify-content: center;
-
-}
-
-.task-placeholder {
-  align-items: center;
-  justify-content: space-between;
-}
-
-.input-task {
-  border-top-color: black;
-  border-top-width: 1px;
-  border-top-style: solid;
-}
-
-.tasks-itm {
-  list-style-type: none;
-  display: flex;
-}
-
-.tast-heading {
-  display: flex;
-}
