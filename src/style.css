@@ -1,50 +1,39 @@
-li {
-  height: 10vh;
+:root {
+  --container-color: #ebebeb;
+  --font-family: lato, sans-serif;
 }
 
-svg {
-  height: 1em;
-  width: 1em;
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
 }
 
-.task-element {
-  border-top-color: black;
-  border-top-width: 1px;
-  border-top-style: solid;
+.list-container {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 100%;
 }
 
-#new-task {
-  width: 90%;
+.task {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-family);
+  font-size: 1em;
+  color: #555;
 }
 
-#add {
-  border: none;
-  background-color: rgba(0, 0, 0, 0);
+.task p {
+  flex-basis: 90%;
 }
 
-.ordered {
-  background-color: #eee;
-  order: 150;
-}
-
-.remove-btn {
-  color: #333;
-}
-
-.remove-btn:hover {
-  color: #222;
-}
-
-.overlined {
-  text-decoration: line-through;
-}
-
-.dropdown-toggle::after {
-  content: none;
-}
-
-p {
-  height: 2em;
-  padding: 0;
-  margin: 0;
+input {
+  position: relative;
 }

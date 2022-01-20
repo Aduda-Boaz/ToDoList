@@ -1,8 +1,7 @@
 /* eslint no-restricted-globals: "off", curly: "error" */
 import './style.css';
-import List from './list.js';
 import setList from './setList.js';
-import Storage from './store.js';
+import DisplayLists from './display.js';
 
 const addBtn = document.getElementById('add');
 const removeAll = document.getElementById('clear');

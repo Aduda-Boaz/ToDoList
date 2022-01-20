@@ -2,11 +2,9 @@
 
 require("./style.css");
 
-var _list = _interopRequireDefault(require("./list.js"));
-
 var _setList = _interopRequireDefault(require("./setList.js"));
 
-var _store = _interopRequireDefault(require("./store.js"));
+var _display = _interopRequireDefault(require("./display.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -14,7 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var addBtn = document.getElementById('add');
 var removeAll = document.getElementById('clear');
 var inputField = document.getElementById('new-item');
-var storage = new _store["default"]();
+var storage = new Storage();
 var lists = storage.getList();
 localStorage.setItem('list', JSON.stringify(lists));
 var listCounter = 1;
@@ -104,7 +102,7 @@ inputField.addEventListener('keypress', function (e) {
     (0, _setList["default"])(description, false, newIndex);
     updateTask();
     document.getElementById('new-item').value = '';
-    var newTask = new _list["default"](description, false, newIndex);
+    var newTask = new List(description, false, newIndex);
     lists.push(newTask);
     localStorage.setItem('list', JSON.stringify(lists));
     location.reload();
@@ -121,7 +119,7 @@ addBtn.addEventListener('click', function (e) {
 
   (0, _setList["default"])(description, false, newIndex);
   document.getElementById('new-task').value = '';
-  var newTask = new _list["default"](description, false, newIndex);
+  var newTask = new List(description, false, newIndex);
   lists.push(newTask);
   localStorage.setItem('list', JSON.stringify(lists));
   location.reload();
