@@ -62,10 +62,10 @@ export const listCompleteEvents = () => {
 };
 
 export const addNewEvents = () => {
-  const input = document.querySelector('#tasks-placeholder');
+  const input = document.querySelector('#Task-input');
 
-  input.addEventListener('keyup', (e) => {
-    if (e.key === 'Enter' && input.value !== '' && e.target.matches('#tasks-placeholder')) {
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && input.value !== '' && e.target.matches('#Task-input')) {
       addNewList();
       updateList();
     }
@@ -73,8 +73,8 @@ export const addNewEvents = () => {
 };
 
 export const editListEvents = () => {
-  const tasksInput = document.querySelectorAll('.list-description');
-  const arrInput = Array.from(tasksInput);
+  const listsInput = document.querySelectorAll('.list-description');
+  const arrInput = Array.from(listsInput);
 
   arrInput.forEach((input) => {
     input.addEventListener('input', () => {

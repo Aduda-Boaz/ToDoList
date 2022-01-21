@@ -12,7 +12,7 @@ export const createList = (list) => {
   li.innerHTML = `
         <label class="task-label">
           <input class="checkbox" ${checkValue} type="checkbox">
-          <input class="task-description ${checkClass}" type="text" value="${list.description}">
+          <input class="list-description ${checkClass}" type="text" value="${list.description}">
           <input type="hidden" class="" value="${list.index}">
         </label>
         <i class="icon-ellipsis-vertical"></i>
