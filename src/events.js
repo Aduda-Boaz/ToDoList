@@ -1,3 +1,4 @@
+/*eslint import/no-cycle: [2, { maxDepth: 1 }]*/
 import checkCompleted from './setList.js';
 import Storage from './store.js';
 import dropItems from './dragdrop.js';

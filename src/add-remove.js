@@ -1,10 +1,11 @@
+/*eslint import/no-cycle: [2, { maxDepth: 1 }]*/
 import {
   addNewEvents,
   deleteAllEvents,
   deleteListEvents,
   dragDropEvents,
   editListEvents,
-  listCompleteEvents
+  listCompleteEvents,
 } from './events.js';
 import List from './list.js';
 
