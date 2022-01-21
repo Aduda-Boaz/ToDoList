@@ -10,7 +10,7 @@ export const createList = (list) => {
   li.classList.add('task-item');
 
   li.innerHTML = `
-        <label class="task label">
+        <label class="task-label">
           <input class="checkbox" ${checkValue} type="checkbox">
           <input class="list-description ${checkClass}" type="text" value="${list.description}">
           <input type="hidden" class="" value="${list.index}">
