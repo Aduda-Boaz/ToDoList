@@ -2,6 +2,8 @@
 
 > A simple implemetation of a simple to-do-list app, using javascript.
 
+![screenshot](./to-do-list.png)
+
 Additional description below.
 
 ## Built With
@@ -24,7 +26,7 @@ To get a local copy up and running follow these simple example steps.
 
 - Clone this repository:
 
-```git clone https://github.com/Aduda-Boaz/to-dolist```
+```git clone https://github.com/Aduda-Boaz/ToDoList```
 
 - Move to the cloned folder:
 
