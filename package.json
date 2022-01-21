@@ -19,9 +19,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Aduda-Boaz/to-do-list/issues"
+    "url": "https://github.com/Aduda-Boaz/ToDoList/issues"
   },
-  "homepage": "https://github.com/Aduda-Boaz/to-do-list#readme",
+  "homepage": "https://github.com/Aduda-Boaz/ToDoList#readme",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "cli": "^1.0.1",
