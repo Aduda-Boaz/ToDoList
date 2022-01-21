@@ -1,4 +1,13 @@
-import { addNewEvents, deleteAllEvents, deleteListEvents, dragDropEvents, editListEvents, listCompleteEvents } from './events.js';
+/* eslint no-restricted-globals: "off", curly: "error" */
+
+import {
+  addNewEvents,
+  deleteAllEvents,
+  deleteListEvents,
+  dragDropEvents,
+  editListEvents,
+  listCompleteEvents,
+} from './events.js';
 import List from './list.js';
 
 export const createList = (list) => {
