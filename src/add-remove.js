@@ -42,7 +42,7 @@ export const displayList = (taskList) => {
 };
 
 export function addNewList() {
-  const input = document.querySelector('#tasks-placeholder');
+  const input = document.querySelector('#Task-input');
   const listUl = document.querySelector('.task-display');
   let listArr = [];
 
