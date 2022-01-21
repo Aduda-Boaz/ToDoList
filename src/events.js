@@ -1,4 +1,5 @@
-/*eslint import/no-cycle: [2, { maxDepth: 1 }]*/
+/* eslint no-restricted-globals: "off", curly: "error" */
+
 import checkCompleted from './setList.js';
 import Storage from './store.js';
 import dropItems from './dragdrop.js';
