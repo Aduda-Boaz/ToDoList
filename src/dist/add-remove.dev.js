@@ -22,7 +22,7 @@ var createList = function createList(list) {
   var checkClass = list.completed === true ? 'marked' : '';
   divContainer.classList.add('div-container');
   li.classList.add('task-item');
-  li.innerHTML = "\n        <label class=\"task-label\">\n          <input class=\"checkbox\" ".concat(checkValue, " type=\"checkbox\">\n          <input class=\"list-description ").concat(checkClass, "\" type=\"text\" value=\"").concat(list.description, "\">\n          <input type=\"hidden\" class=\"\" value=\"").concat(list.index, "\">\n        </label>\n        <i class=\"icon-ellipsis-vertical\"></i>\n        <i class=\"icon-trash\"></i>");
+  li.innerHTML = "\n        <label class=\"task label\">\n          <input class=\"checkbox\" ".concat(checkValue, " type=\"checkbox\">\n          <input class=\"list-description ").concat(checkClass, "\" type=\"text\" value=\"").concat(list.description, "\">\n          <input type=\"hidden\" class=\"\" value=\"").concat(list.index, "\">\n        </label>\n        <i class=\"icon-ellipsis-vertical\"></i>\n        <i class=\"icon-trash\"></i>");
   divContainer.appendChild(li);
   return divContainer;
 };
