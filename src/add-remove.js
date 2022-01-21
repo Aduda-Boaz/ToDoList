@@ -1,4 +1,4 @@
-import { } from './events.js';
+import { addNewEvents, deleteAllEvents, deleteListEvents, dragDropEvents, editListEvents, listCompleteEvents } from './events.js';
 import List from './list.js';
 
 export const createList = (list) => {
@@ -22,3 +22,54 @@ export const createList = (list) => {
 
   return divContainer;
 };
+
+export function setEventListeners() {
+  dragDropEvents();
+  listCompleteEvents();
+  addNewEvents();
+  editListEvents();
+  deleteListEvents();
+  deleteAllEvents();
+}
+
+export const displayList = (taskList) => {
+  const listUl = document.querySelector('.task-display');
+
+  taskList.forEach((element) => {
+    const div = createList(element);
+    listUl.appendChild(div);
+  });
+};
+
+export function addNewList() {
+  const input = document.querySelector('#tasks-placeholder');
+  const listUl = document.querySelector('.task-display');
+  let listArr = [];
+
+  if (localStorage.getItem('lists')) {
+    listArr = JSON.parse(localStorage.getItem('lists'));
+  }
+
+  listArr.push(new List(input.value, false, listArr.length + 1));
+  input.value = '';
+  listUl.innerHTML = '';
+  displayList(listArr);
+  setEventListeners();
+}
+
+export function deleteList(event) {
+  const listUl = document.querySelector('.task-display');
+  const removeDiv = event.target.parentNode.parentNode;
+
+  listUl.removeChild(removeDiv);
+}
+
+export function clearSelection() {
+  const listUl = document.querySelector('.task-display');
+  const removeTasks = document.querySelectorAll('.marked');
+
+  removeTasks.forEach((element) => {
+    const removeDiv = element.parentElement.parentElement.parentElement;
+    listUl.removeChild(removeDiv);
+  });
+}
