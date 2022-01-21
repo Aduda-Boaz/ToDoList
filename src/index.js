@@ -1,9 +1,11 @@
 /* eslint no-restricted-globals: "off", curly: "error" */
+import _, { create } from 'lodash';
 import './style.css';
-import setList from './setList.js';
-import DisplayLists from './display.js';
+import List from './list.js';
+import checkCompleted from './setList.js';
+import Storage from './store.js';
 
-const addBtn = document.getElementById('add');
+const addBtn = document.getElementById('Task-input');
 const removeAll = document.getElementById('clear');
 const inputField = document.getElementById('new-item');
 const storage = new Storage();
@@ -17,9 +19,9 @@ if (localStorage.getItem('list') == null) {
 }
 
 const counterIncreament = () => {
-  const res = listCounter;
+  const reset = listCounter;
   listCounter += 1;
-  return res;
+  return reset;
 };
 
 const deleteAll = (id) => {
@@ -48,7 +50,7 @@ const editEvent = (id) => {
 
 const updateTask = (item, index) => {
   lists[index - 1].completed = item;
-  localStorage.setItem('list', JSON.stringify(lists));
+  window.localStorage.setItem('list', JSON.stringify(lists));
   const text = document.getElementById(`${index}-description`);
   if (item) {
     text.classList.add('overlined');
@@ -57,7 +59,7 @@ const updateTask = (item, index) => {
   }
 };
 
-function loadPredef(arr) {
+function loadItems(arr) {
   for (let i = 0; i < arr.length; i += 1) {
     setList(arr[i].description, arr[i].completed, counterIncreament());
   }
@@ -68,13 +70,13 @@ function loadPredef(arr) {
       updateTask(box.checked, box.value);
     });
   });
-  const completeRemovers = document.querySelectorAll('a.dropdown-remover');
+  const completeRemovers = document.querySelectorAll('task-display');
   completeRemovers.forEach((link) => {
     link.addEventListener('click', () => {
       deleteAll(link.id);
     });
   });
-  const completeEditors = document.querySelectorAll('a.dropdown-editor');
+  const completeEditors = document.querySelectorAll('task-display');
   completeEditors.forEach((link) => {
     link.addEventListener('click', () => {
       editEvent(link.id);
@@ -82,7 +84,7 @@ function loadPredef(arr) {
   });
 }
 
-loadPredef(lists);
+loadItems(lists);
 
 inputField.addEventListener('keypress', (e) => {
   if (e.key === 'enter') {
@@ -94,7 +96,7 @@ inputField.addEventListener('keypress', (e) => {
     updateTask();
 
     document.getElementById('new-item').value = '';
-    const newTask = new List(description, false, newIndex);
+    const newTask = new List(description, completed = false, newIndex);
 
     lists.push(newTask);
     localStorage.setItem('list', JSON.stringify(lists));
@@ -121,7 +123,7 @@ addBtn.addEventListener('click', (e) => {
 
 removeAll.addEventListener('click', (e) => {
   e.preventDefault();
-  lists = lists.filter((task) => task.completed === false);
+  lists = lists.filter((list) => list.completed === false);
   localStorage.setItem('list', JSON.stringify(lists));
   location.reload();
 });
