@@ -12,6 +12,7 @@ Additional description below.
 - Webpack
 - HTML5
 - CSS3
+- Bootstrap
 
 ## Getting Started
 

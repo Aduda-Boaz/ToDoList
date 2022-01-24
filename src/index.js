@@ -1,17 +1,38 @@
-/* eslint no-restricted-globals: "off", curly: "error" */
-
+/* eslint-disable no-unused-vars */
 import './style.css';
-import Storage from './store.js';
-import { displayList, setEventListeners } from './add-remove.js';
 
-let taskList = [];
+const listItems = [
+  {
+    description: 'Go to the gym',
+    completed: false,
+    index: 0,
+  },
+  {
+    description: 'Prepare breakfast',
+    completed: false,
+    index: 1,
+  },
+  {
+    description: 'Wash dishes',
+    completed: false,
+    index: 2,
+  },
+];
 
-if (localStorage.getItem('lists')) {
-  taskList = JSON.parse(localStorage.getItem('lists'));
-  displayList(taskList);
-  setEventListeners();
-} else {
-  Storage(taskList);
-  displayList(taskList);
-  setEventListeners();
+function createList(taskList) {
+  return `
+    <div class="task">
+      <input type="checkbox">
+      <p>${taskList.description}</p>
+      <i class="icon-ellipsis-vertical"></i>
+    </div>
+  `;
 }
+
+const taskUl = document.querySelector('.task-display');
+
+listItems.forEach((taskList) => {
+  const list = document.createElement('list');
+  list.innerHTML = createList(taskList);
+  taskUl.appendChild(list);
+});
