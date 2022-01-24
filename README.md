@@ -15,7 +15,7 @@ Additional description below.
 
 ## Live Demo (if available)
 
-[Live Demo Link](https://aduda-boaz.github.io/ToDoList/)
+[Live Demo Link](https://romantic-snyder-075bbe.netlify.app/)
 
 ## Getting Started
 
