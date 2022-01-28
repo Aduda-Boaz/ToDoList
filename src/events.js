@@ -1,9 +1,10 @@
 /* eslint no-restricted-globals: "off", curly: "error" */
 
-import checkCompleted from './setList.js';
-import Storage from './store.js';
-import dropItems from './dragdrop.js';
-import { addNewList, deleteList, clearSelection } from './add-remove.js';
+import checkCompleted from './setList';
+import Storage from './store';
+import dropItems from './dragdrop';
+// eslint-disable-next-line import/no-cycle
+import { addNewList, deleteList, clearSelection } from './add-remove';
 
 function updateList() {
   const checkBoxItems = document.querySelectorAll('.checkbox');
