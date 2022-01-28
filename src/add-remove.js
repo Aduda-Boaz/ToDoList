@@ -1,14 +1,11 @@
 /* eslint no-restricted-globals: "off", curly: "error" */
 
+// eslint-disable-next-line import/no-cycle
 import {
-  addNewEvents,
-  deleteAllEvents,
-  deleteListEvents,
-  dragDropEvents,
-  editListEvents,
-  listCompleteEvents,
-} from './events.js';
-import List from './list.js';
+  // eslint-disable-next-line max-len
+  addNewEvents, deleteAllEvents, deleteListEvents, dragDropEvents, editListEvents, listCompleteEvents,
+} from './events';
+import List from './list';
 
 export const createList = (list) => {
   const divContainer = document.createElement('div');

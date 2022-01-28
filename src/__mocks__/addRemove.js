@@ -1,13 +1,13 @@
-import { globaldocument } from "../../dynamic";
-import List from "../list";
-import Storage from "./localStorageMock";
+import { globaldocument } from '../../dynamic';
+import List from '../list';
+import Storage from './localStorageMock';
 
 const addNewList = (description) => {
+  // eslint-disable-next-line no-use-before-define
   if (validateDescription(description)) {
     const lists = Storage.emptyTaskList();
     const task1 = new List(description, false, lists.length);
     lists.push(task1);
-    console.log(task1);
     Storage.setLists();
     const taskList = globaldocument.getElementById('Task-input');
 
@@ -59,4 +59,6 @@ const validateDescription = (text) => {
   return true;
 };
 
-export { addNewList, getTasklistFromDOM, removeList, validateDescription };
+export {
+  addNewList, getTasklistFromDOM, removeList, validateDescription,
+};
