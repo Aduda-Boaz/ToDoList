@@ -3,26 +3,25 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.gettasklistFromDOM = exports.addNewList = void 0;
+exports.validateDescription = exports.removeList = exports.getTasklistFromDOM = exports.addNewList = void 0;
 
 var _dynamic = require("../../dynamic");
 
-var _events = require("../events");
-
 var _list = _interopRequireDefault(require("../list"));
 
-var _store = _interopRequireDefault(require("../store"));
+var _localStorageMock = _interopRequireDefault(require("./localStorageMock"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var addNewList = function addNewList(description) {
-  if ((0, _events.updateList)(description)) {
-    var lists = _store["default"].emptyTaskList();
+  if (validateDescription(description)) {
+    var lists = _localStorageMock["default"].emptyTaskList();
 
-    var task1 = new _list["default"](description, lists.length);
+    var task1 = new _list["default"](description, false, lists.length);
     lists.push(task1);
+    console.log(task1);
 
-    _store["default"].setLists();
+    _localStorageMock["default"].setLists();
 
     var taskList = _dynamic.globaldocument.getElementById('Task-input');
 
@@ -46,11 +45,40 @@ var addNewList = function addNewList(description) {
 
 exports.addNewList = addNewList;
 
-var gettasklistFromDOM = function gettasklistFromDOM() {
-  var taskList = _dynamic.globaldocument.getElementById('Taskinput');
+var removeList = function removeList(index) {
+  var lists = _localStorageMock["default"].taskListTasks();
+
+  if (index < 0 || index >= lists.length) {
+    return false;
+  }
+
+  lists = lists.splice(index, 1);
+
+  var tasklist = _dynamic.globaldocument.getElementById('Task-input');
+
+  var taskListChildren = tasklist.children;
+  var list2delete = taskListChildren[index];
+  list2delete.remove();
+  return _localStorageMock["default"].setLists();
+};
+
+exports.removeList = removeList;
+
+var getTasklistFromDOM = function getTasklistFromDOM() {
+  var taskList = _dynamic.globaldocument.getElementById('Task-input');
 
   var taskListLength = taskList.children.length;
   return taskListLength;
 };
 
-exports.gettasklistFromDOM = gettasklistFromDOM;
+exports.getTasklistFromDOM = getTasklistFromDOM;
+
+var validateDescription = function validateDescription(text) {
+  if (text === null || text === '') {
+    return false;
+  }
+
+  return true;
+};
+
+exports.validateDescription = validateDescription;

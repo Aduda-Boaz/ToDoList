@@ -1,13 +1,13 @@
 import { globaldocument } from "../../dynamic";
-import { updateList } from '../events';
 import List from "../list";
-import Storage from "../store";
+import Storage from "./localStorageMock";
 
 const addNewList = (description) => {
-  if (updateList(description)) {
+  if (validateDescription(description)) {
     const lists = Storage.emptyTaskList();
-    const task1 = new List(description, lists.length);
+    const task1 = new List(description, false, lists.length);
     lists.push(task1);
+    console.log(task1);
     Storage.setLists();
     const taskList = globaldocument.getElementById('Task-input');
 
@@ -30,10 +30,33 @@ const addNewList = (description) => {
   return false;
 };
 
-const gettasklistFromDOM = () => {
-  const taskList = globaldocument.getElementById('Taskinput');
+const removeList = (index) => {
+  let lists = Storage.taskListTasks();
+
+  if (index < 0 || index >= lists.length) {
+    return false;
+  }
+  lists = lists.splice(index, 1);
+
+  const tasklist = globaldocument.getElementById('Task-input');
+  const taskListChildren = tasklist.children;
+  const list2delete = taskListChildren[index];
+  list2delete.remove();
+
+  return Storage.setLists();
+};
+
+const getTasklistFromDOM = () => {
+  const taskList = globaldocument.getElementById('Task-input');
   const taskListLength = taskList.children.length;
   return taskListLength;
 };
 
-export { addNewList, gettasklistFromDOM };
+const validateDescription = (text) => {
+  if (text === null || text === '') {
+    return false;
+  }
+  return true;
+};
+
+export { addNewList, getTasklistFromDOM, removeList, validateDescription };

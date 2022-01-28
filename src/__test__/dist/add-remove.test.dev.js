@@ -1,32 +1,24 @@
 "use strict";
 
-var _localStorageMock = _interopRequireDefault(require("../__mocks__/localStorageMock"));
-
-var _addRemove = _interopRequireDefault(require("../__mocks__/addRemove"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _addRemove = require("../__mocks__/addRemove");
 
 /* eslint-disable no-undef */
-
-/**
- * @jest-environment jsdom
- */
-global.localStorage = new _localStorageMock["default"]();
-var lists = new _addRemove["default"]();
-describe('Add list of tasks', function () {
-  test('Add list index', function () {
-    lists.addList('Good');
-    expect(lists.list[1]).toBe('Good');
+describe('Add task list and storgae:', function () {
+  test("test if description is invalid with ''.", function () {
+    expect((0, _addRemove.addNewList)('')).toBeFalsy();
   });
-  test('should check available description', function () {
-    lists.addList('Go for vacation');
-    expect(lists.list[1].description).toBe('Go for vacation');
+  test('should check if new task has been stored.', function () {
+    expect((0, _addRemove.addNewList)('Go home')).toBeTruthy();
+  });
+  test('should test for task added in DOM', function () {
+    expect((0, _addRemove.getTasklistFromDOM)()).toBe(1);
   });
 });
-describe('remove list from todo', function () {
-  it('should remove todo list', function () {
-    var index = 1;
-    lists.deleteList(index);
-    expect(lists.list.length).toBe(1);
+describe('Remove task list from DOM and storage:', function () {
+  test('should return false when index is greater than length of stored list', function () {
+    expect((0, _addRemove.removeList)(3)).toBeFalsy;
+  });
+  test('should return false when index is less than length of stored list', function () {
+    expect((0, _addRemove.removeList)(-1)).toBeFalsy;
   });
 });

@@ -1,29 +1,24 @@
 /* eslint-disable no-undef */
-/**
- * @jest-environment jsdom
- */
-import LocalStorage from "../__mocks__/localStorageMock";
-import List from "../__mocks__/addRemove";
+import { addNewList, getTasklistFromDOM, removeList } from "../__mocks__/addRemove";
 
-global.localStorage = new LocalStorage();
-const lists = new List();
-
-describe('Add list of tasks', () => {
-  test('Add list index', () => {
-    lists.addList('Good');
-    expect(lists.list[1]).toBe('Good');
+describe('Add task list and storgae:', () => {
+  test("test if description is invalid with ''.", () => {
+    expect(addNewList('')).toBeFalsy();
   });
-
-  test('should check available description', () => {
-    lists.addList('Go for vacation');
-    expect(lists.list[1].description).toBe('Go for vacation');
+  test('should check if new task has been stored.', () => {
+    expect(addNewList('Go home')).toBeTruthy();
   });
+  test('should test for task added in DOM', () => {
+    expect(getTasklistFromDOM()).toBe(1);
+  });  
 });
 
-describe('remove list from todo', () => {
-  it('should remove todo list', () => {
-    const index = 1;
-    lists.deleteList(index);
-    expect(lists.list.length).toBe(1);
+describe('Remove task list from DOM and storage:', () => {
+  test('should return false when index is greater than length of stored list', () => {
+    expect(removeList(3)).toBeFalsy;
   });
-});
+
+  test('should return false when index is less than length of stored list', () => {
+    expect(removeList(-1)).toBeFalsy;
+  });
+})
