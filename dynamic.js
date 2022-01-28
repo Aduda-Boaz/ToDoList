@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+/* eslint-disable no-undef */
+const jsdom = require('jsdom');
+
+const { JSDOM } = jsdom;
+const domHtml = new JSDOM(`
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
   <title>To-Do-List</title>
-<script defer src="main.js"></script></head>
+</head>
 
 <body>
   <main>
@@ -28,4 +33,7 @@
   </main>
 </body>
 
-</html>
+</html>`, { url: 'https://localhost/' });
+global.document = domHtml.window.document;
+global.window = domHtml.window;
+exports.globaldocument = global.document;
