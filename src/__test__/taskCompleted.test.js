@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { removeCompleted } from "../__mocks__/taskCompleted";
 import { inicializeLists } from '../__mocks__/editTasks';
 

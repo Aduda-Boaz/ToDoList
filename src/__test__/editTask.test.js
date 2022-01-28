@@ -1,9 +1,8 @@
-/* eslint-disable no-undef */
 import { editList, verifyEdits, inicializeLists } from "../__mocks__/editTasks";
 
 describe('Edit list description:', () => {
   inicializeLists();
-  
+
   test('should return error message when new task description is invalid', () => {
     expect(editList('', 0)).toBe('No empty task description');
   });

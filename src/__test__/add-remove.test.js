@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { addNewList, getTasklistFromDOM, removeList } from "../__mocks__/addRemove";
 
 describe('Add task list and storgae:', () => {
