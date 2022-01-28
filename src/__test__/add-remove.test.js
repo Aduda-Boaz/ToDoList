@@ -11,7 +11,7 @@ const lists = new List();
 describe('Add list of tasks', () => {
   test('Add list index', () => {
     lists.addList('Good');
-    expect(lists.list[1]).toBe(1);
+    expect(lists.list[1]).toBe('Good');
   });
 
   test('should check available description', () => {
@@ -25,5 +25,5 @@ describe('remove list from todo', () => {
     const index = 1;
     lists.deleteList(index);
     expect(lists.list.length).toBe(1);
-  })
-})
+  });
+});

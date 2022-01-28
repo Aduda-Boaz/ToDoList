@@ -16,7 +16,7 @@ var lists = new _addRemove["default"]();
 describe('Add list of tasks', function () {
   test('Add list index', function () {
     lists.addList('Good');
-    expect(lists.list[1]).toBe(1);
+    expect(lists.list[1]).toBe('Good');
   });
   test('should check available description', function () {
     lists.addList('Go for vacation');

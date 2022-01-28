@@ -1,35 +1,39 @@
-export default class List {
-  list = [];
-  
-  addList = (description) => {
-    const index = this.list.length + 1;
-    const completed = false;
-    this.list.push({ description, completed, index });
-    localStorage.setItem('list', JSON.stringify(this.list));
-  };
+import { globaldocument } from "../../dynamic";
+import { updateList } from '../events';
+import List from "../list";
+import Storage from "../store";
 
-  setIndex = () => {
-    let i = 0;
-    this.list.forEach((item) => {
-      i += 1;
-      item.index = i;
-    });
+const addNewList = (description) => {
+  if (updateList(description)) {
+    const lists = Storage.emptyTaskList();
+    const task1 = new List(description, lists.length);
+    lists.push(task1);
+    Storage.setLists();
+    const taskList = globaldocument.getElementById('Task-input');
+
+    const div = document.createElement('div');
+    const checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+    checkbox.checked = task1.checkCompleted;
+    const p = document.createElement('p');
+    p.textContent = task1.description;
+    const span = document.createElement('span');
+    span.textContent = 'delete';
+
+    div.appendChild(checkbox);
+    div.appendChild(p);
+    div.appendChild(span);
+    taskList.appendChild(div);
+
+    return true;
   }
+  return false;
+};
 
-  deleteList = (index) => {
-    this.list = this.list.filter((item) => {
-      Number(index) !== item.index
-    });
-    return this.list;
-  }
+const gettasklistFromDOM = () => {
+  const taskList = globaldocument.getElementById('Taskinput');
+  const taskListLength = taskList.children.length;
+  return taskListLength;
+};
 
-  listCompleted = (index) => {
-    const lists = this.list.find((item) => Number(index) === item.index);
-    if (lists.completed === true) {
-      lists.completed = false;
-    } else {
-      lists.completed = true;
-    }
-    localStorage.setItem('list', JSON.stringify(this.list));
-  };
-}
+export { addNewList, gettasklistFromDOM };

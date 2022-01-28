@@ -1,21 +1,24 @@
-export default class LocalStorage {
-  constructor() {
-    this.storage = {};
-  } 
+import List from '../list';
 
-  getItem(key) {
-    return this.storage[key] || null;
+export default class Storage {
+  static emptyTaskList() {
+    return [];
   }
 
-  setItem(key, value) {
-    this.storage[key] = value.toString();
+  static taskListTasks() {
+    const lists = [];
+    const task1 = new List('go out', false, 0);
+    const task2 = new List('prepare breakfast', true, 1);
+    const task3 = new List('go to gym', false, 2);
+
+    lists.push(task1);
+    lists.push(task2);
+    lists.push(task3);
+
+    return lists;
   }
 
-  removeItem(key) {
-    delete this.storage[key];
-  }
-
-  reset() {
-    this.storage = {};
+  static setLists() {
+    return true;
   }
 }
