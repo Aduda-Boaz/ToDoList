@@ -1,4 +1,4 @@
-import { editList, verifyEdits, inicializeLists } from "../__mocks__/editTasks";
+import { editList, verifyEdits, inicializeLists } from '../__mocks__/editTasks.js';
 
 describe('Edit list description:', () => {
   inicializeLists();

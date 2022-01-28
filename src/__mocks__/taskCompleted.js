@@ -23,7 +23,7 @@ const populateListDOM = (ls) => {
 
 const returnsUncompleted = (list) => !list.checkCompleted;
 
-const removeCompleted = () => {
+function removeCompleted() {
   const lists = Storage.taskListTasks();
   const unCompletedTask = lists.filter(returnsUncompleted);
 
