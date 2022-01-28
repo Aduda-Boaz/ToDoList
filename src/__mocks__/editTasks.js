@@ -1,7 +1,7 @@
-import { globaldocument } from "../../dynamic";
+import { globaldocument } from '../../dynamic';
 
-import Storage from "./localStorageMock";
-import { validateDescription } from "./addRemove";
+import Storage from './localStorageMock';
+import { validateDescription } from './addRemove';
 
 const editList = (descrip, index) => {
   if (validateDescription(descrip)) {
@@ -9,7 +9,6 @@ const editList = (descrip, index) => {
     if (index >= 0 && index < lists.length) {
       const list2edit = lists[index];
       list2edit.description = descrip;
-      lists[index] - list2edit;
 
       // in the DOM
 

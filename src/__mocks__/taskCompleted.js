@@ -1,5 +1,5 @@
-import { globaldocument } from "../../dynamic";
-import Storage from "./localStorageMock";
+import { globaldocument } from '../../dynamic';
+import Storage from './localStorageMock';
 
 const populateListDOM = (ls) => {
   const tasklist = globaldocument.getElementById('Task-input');
@@ -21,11 +21,9 @@ const populateListDOM = (ls) => {
   });
 };
 
-const returnsUncompleted = (list) => {
-  return !list.checkCompleted;
-}
+const returnsUncompleted = (list) => !list.checkCompleted;
 
-function removeCompleted() {
+const removeCompleted = () => {
   const lists = Storage.taskListTasks();
   const unCompletedTask = lists.filter(returnsUncompleted);
 
@@ -33,5 +31,5 @@ function removeCompleted() {
 
   return Storage.setLists();
 }
-  
-export { removeCompleted };
+
+export default removeCompleted;
